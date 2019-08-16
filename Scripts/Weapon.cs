@@ -6,7 +6,9 @@ public class Weapon : MonoBehaviour
 {
     public Transform firePoint;
     public GameObject bulletPrefab;
+    public GameObject launcherPelletPrefab;
     bool cooldown = false;
+    bool cooldownGL = false;
     public int weapon = 0;
     public bool[] weaponEnable = new bool[3];
     //public GameObject weaponAR;
@@ -49,20 +51,24 @@ public class Weapon : MonoBehaviour
     {
         //Key Input Shot
         if (Input.GetButton("Fire1") & cooldown == false)
-        {
-            cooldown = true;
-            Shoot();
+        {                       
             if (weapon == 0)
             {
+                cooldown = true;
+                Shoot();
                 StartCoroutine(Wait(1.5f));
             }
             if (weapon == 1)
             {
+                cooldown = true;
+                Shoot();
                 StartCoroutine(Wait(0.2f));
             }
             if (weapon == 2)
             {
-                StartCoroutine(Wait(1.5f));
+                cooldownGL = true;
+                ShootGL();
+                StartCoroutine(WaitGL(1.5f));
             }
 
         }
@@ -82,10 +88,19 @@ public class Weapon : MonoBehaviour
 
     void Shoot()
     {
-        //Shooting Logic Player
+        //Shooting Logic Player (in Prefab) / standard
         if (gameObject.tag == "Player")
         {
             Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        }
+    }
+
+    void ShootGL()
+    {
+        //Shooting Logic Player (in Prefab) / GrenadeLauncher
+        if (gameObject.tag == "Player")
+        {           
+            Instantiate(launcherPelletPrefab, firePoint.position, firePoint.rotation);
         }
     }
 
@@ -93,5 +108,11 @@ public class Weapon : MonoBehaviour
     {
         yield return new WaitForSeconds(zeit);
         cooldown = false;
+    }
+
+    IEnumerator WaitGL(float zeit)
+    {
+        yield return new WaitForSeconds(zeit);
+        cooldownGL = false;
     }
 }

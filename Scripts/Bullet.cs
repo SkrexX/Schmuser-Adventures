@@ -25,11 +25,14 @@ public class Bullet : MonoBehaviour
         {
             enemy.TakeDamage(damage);
         }
+        else if (hitInfo.tag == "BlussiBullet")
+        {
+
+        }
         else
         {
             Destroy(gameObject);
         }
-        Destroy(gameObject);
     }
     //EnemyBullet hitting Player
     void OnCollisionEnter2D (Collision2D hitInfo)
