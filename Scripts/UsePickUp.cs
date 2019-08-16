@@ -4,23 +4,39 @@ using UnityEngine;
 
 public class UsePickUp : MonoBehaviour
 {
-    public GameObject weapon;
+    public GameObject weaponAR;
+    public GameObject weaponGL;
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
             //weapon = GameObject.FindGameObjectWithTag("Weapon");
+            if (gameObject.CompareTag("WeaponAR"))
+            {
+                //Waffenmodus umstellen
+                Weapon weaponScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Weapon>();
+                weaponScript.weaponEnable[1] = true;
+                weaponScript.weapon = 1;
 
-            //Waffenmodus umstellen
-            Weapon weaponScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Weapon>();
-            weaponScript.waffe = 1;
+                //Waffe sichtbar aufsammeln
+                weaponAR.SetActive(true);
+                Destroy(gameObject);
+                Debug.Log("UsePickUpTrigger");
+            }
+            if (gameObject.CompareTag("WeaponGL"))
+            {
+                //Waffenmodus umstellen
+                Weapon weaponScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Weapon>();
+                weaponScript.weaponEnable[2] = true;
+                weaponScript.weapon = 2;
 
-            //Waffe sichtbar aufsammeln
-            weapon.SetActive(true);
-            Destroy(gameObject);
-            Debug.Log("UsePickUpTrigger");
-            
+                //Waffe sichtbar aufsammeln
+                weaponGL.SetActive(true);
+                Destroy(gameObject);
+                Debug.Log("UsePickUpTrigger");
+            }
+
         }
-        
+
     }
 }

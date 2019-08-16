@@ -9,6 +9,7 @@ public class CaveEvent : MonoBehaviour
     WeaponEnemy pipeWeaponScript;
     bool isTriggered = false;
 
+    public GameObject player;
     public AudioClip soundClip;
     public AudioSource soundSource;
     public PlayerMovement playerMovement;
@@ -35,7 +36,7 @@ public class CaveEvent : MonoBehaviour
         if (isTriggered) return; //force single Use
         isTriggered = true;
 
-        playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+        playerMovement = player.GetComponent<PlayerMovement>();
         Vector3 pos = new Vector3(45.5f, -21.9f, 0f);
         Vector3 rot = new Vector3(0f, 0f, 0f);
         Debug.Log("CaveEvent Triggered");

@@ -10,7 +10,7 @@ public class ItemPickUp : MonoBehaviour
     {
         //Debug.Log(hitInfo.gameObject.name);
         
-
+        
         if (hitInfo.gameObject.tag == "Player" & gameObject.tag=="BlussiDrop")
         {            
             if (isColliding) return; //If the boolean is true, quit the method, else set it to true and do the rest.
@@ -20,7 +20,7 @@ public class ItemPickUp : MonoBehaviour
             Destroy(gameObject);
             Score.IncreaseScore(5);
 
-            
+            isColliding = false;
         }
         
     }
